@@ -31,6 +31,7 @@ TOOLCHAIN_HOST_TASK ?= "\
     nativesdk-zstd \
     nativesdk-lz4 \
     nativesdk-libacl \
+    nativesdk-ccache \
     "
 
 MULTIMACH_TARGET_SYS = "${SDK_ARCH}-nativesdk${SDK_VENDOR}-${SDK_OS}"
