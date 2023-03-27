@@ -1,0 +1,59 @@
+From 6fd92cfc8a52a1884b8bc45b9ac0c7ceaf492a58 Mon Sep 17 00:00:00 2001
+From: Kai Kang <kai.kang@windriver.com>
+Date: Mon, 27 Mar 2023 21:19:36 +0800
+Subject: [PATCH] brw_simd_selection.cpp: fix non-trivial designated
+ initializers issue
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It fails to compile intel/compiler/brw_simd_selection.cpp with g++ 7.5.0:
+
+| mesa-23.0.0/src/intel/compiler/brw_simd_selection.cpp: In function ‘int
+  brw_simd_select_for_workgroup_size(const intel_device_info*,
+  const brw_cs_prog_data*, const unsigned int*)’:
+| mesa-23.0.0/src/intel/compiler/brw_simd_selection.cpp:205:7: sorry,
+  unimplemented: non-trivial designated initializers not supported
+|        };
+|        ^
+
+Initialize the leading 2 members to fix the issue.
+
+Upstream-Status: Submitted [https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22138]
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ src/intel/compiler/brw_simd_selection.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/intel/compiler/brw_simd_selection.cpp b/src/intel/compiler/brw_simd_selection.cpp
+index 1515e538b74..4c065f9884a 100644
+--- a/src/intel/compiler/brw_simd_selection.cpp
++++ b/src/intel/compiler/brw_simd_selection.cpp
+@@ -232,10 +232,14 @@ brw_simd_select_for_workgroup_size(const struct intel_device_info *devinfo,
+                                    const struct brw_cs_prog_data *prog_data,
+                                    const unsigned *sizes)
+ {
++   void *mem_ctx = ralloc_context(NULL);
++
+    if (!sizes || (prog_data->local_size[0] == sizes[0] &&
+                   prog_data->local_size[1] == sizes[1] &&
+                   prog_data->local_size[2] == sizes[2])) {
+       brw_simd_selection_state simd_state{
++         .mem_ctx = mem_ctx,
++         .devinfo = devinfo,
+          .prog_data = const_cast<struct brw_cs_prog_data *>(prog_data),
+       };
+ 
+@@ -257,8 +261,6 @@ brw_simd_select_for_workgroup_size(const struct intel_device_info *devinfo,
+    cloned.prog_mask = 0;
+    cloned.prog_spilled = 0;
+ 
+-   void *mem_ctx = ralloc_context(NULL);
+-
+    brw_simd_selection_state simd_state{
+       .mem_ctx = mem_ctx,
+       .devinfo = devinfo,
+-- 
+2.34.1
+
