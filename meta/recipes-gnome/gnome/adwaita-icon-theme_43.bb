@@ -12,11 +12,18 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=c84cac88e46fc07647ea07e6c24eeb7c \
 
 inherit allarch autotools pkgconfig gettext gtk-icon-cache gnomebase
 
-SRC_URI += " file://0001-Don-t-use-AC_CANONICAL_HOST.patch"
+SRC_URI += "file://0001-Don-t-use-AC_CANONICAL_HOST.patch \
+            file://drive-multidisk.svg \
+            "
 
 SRC_URI[archive.sha256sum] = "2e3ac77d32a6aa5554155df37e8f0a0dd54fc5a65fd721e88d505f970da32ec6"
 
 DEPENDS += "librsvg-native"
+
+do_install:append() {
+	install -D ${WORKDIR}/drive-multidisk.svg \
+		${D}${datadir}/icons/Adwaita/scalable/devices/drive-multidisk.svg
+}
 
 PACKAGES = "${PN}-cursors ${PN}-symbolic-hires ${PN}-symbolic ${PN}-hires ${PN}"
 
