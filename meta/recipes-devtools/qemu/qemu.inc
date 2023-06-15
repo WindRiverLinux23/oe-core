@@ -258,6 +258,9 @@ python split_qemu_packages () {
     mipspackage = d.getVar('PN') + "-user-mips"
     if mipspackage in ' '.join(userpackages):
         d.appendVar('RDEPENDS:' + mipspackage, ' ' + d.getVar("MLPREFIX") + 'bash')
+
+    targetarch = "${@'i386' if d.getVar('TARGET_ARCH') in ['x86', 'i486', 'i586', 'i686'] else d.getVar('TARGET_ARCH').replace('_', '-')}"
+    d.appendVar('RRECOMMENDS:' + d.getVar('PN'), ' ' + d.getVar('PN') + '-user-' + targetarch + ' ' + d.getVar('PN') + '-system-' + targetarch)
 }
 
 # Put the guest agent in a separate package
