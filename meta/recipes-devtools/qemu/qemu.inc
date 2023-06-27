@@ -230,15 +230,18 @@ PACKAGECONFIG[slirp] = "--enable-slirp,--disable-slirp,libslirp"
 PACKAGECONFIG[brlapi] = "--enable-brlapi,--disable-brlapi"
 PACKAGECONFIG[jack] = "--enable-jack,--disable-jack,jack,"
 
-INSANE_SKIP:${PN} = "arch"
+INSANE_SKIP:${PN}-common = "arch"
 
 FILES:${PN} += "${datadir}/icons"
 
 # For user who want to install all arch packages
-PACKAGES =+ "${PN}-system-all ${PN}-user-all"
+PACKAGES =+ "${PN}-common"
+RDEPENDS:${PN} += "${PN}-common"
 
-ALLOW_EMPTY:${PN}-system-all = "1"
-ALLOW_EMPTY:${PN}-user-all = "1"
+ALLOW_EMPTY:${PN} = "1"
+FILES:${PN} = ""
+
+FILES:${PN}-common = "/usr/*  /var"
 
 PACKAGES_DYNAMIC += "^${PN}-user-.*  ^${PN}-system-.*"
 
@@ -246,19 +249,14 @@ PACKAGESPLITFUNCS =+ "split_qemu_packages"
 
 python split_qemu_packages () {
     archdir = d.expand('${bindir}/')
-    syspackages = do_split_packages(d, archdir, r'^qemu-system-(.*)$', '${PN}-system-%s', 'QEMU full system emulation binaries(%s)' , prepend=True)
-    if syspackages:
-        d.setVar('RDEPENDS:' + d.getVar('PN') + '-system-all', ' '.join(syspackages))
+    subpackages = do_split_packages(d, archdir, r'^qemu-system-(.*)$', '${PN}-system-%s', 'QEMU full system emulation binaries(%s)' , prepend=True, extra_depends='${PN}-common')
 
-    userpackages = do_split_packages(d, archdir, r'^qemu-((?!system|edid|ga|img|io|nbd|pr-helper|storage-daemon).*)$', '${PN}-user-%s', 'QEMU full user emulation binaries(%s)' , prepend=True)
-    if userpackages:
-        d.setVar('RDEPENDS:' + d.getVar('PN') + '-user-all', ' '.join(userpackages))
+    subpackages += do_split_packages(d, archdir, r'^qemu-((?!system|edid|ga|img|io|nbd|pr-helper|storage-daemon).*)$', '${PN}-user-%s', 'QEMU full user emulation binaries(%s)' , prepend=True, extra_depends='${PN}-common')
+    if subpackages:
+        d.appendVar('RDEPENDS:' + d.getVar('PN'), ' ' + ' '.join(subpackages))
     mipspackage = d.getVar('PN') + "-user-mips"
-    if mipspackage in ' '.join(userpackages):
+    if mipspackage in ' '.join(subpackages):
         d.appendVar('RDEPENDS:' + mipspackage, ' ' + d.getVar("MLPREFIX") + 'bash')
-
-    targetarch = "${@'i386' if d.getVar('TARGET_ARCH') in ['x86', 'i486', 'i586', 'i686'] else d.getVar('TARGET_ARCH').replace('_', '-')}"
-    d.appendVar('RRECOMMENDS:' + d.getVar('PN'), ' ' + d.getVar('PN') + '-user-' + targetarch + ' ' + d.getVar('PN') + '-system-' + targetarch)
 }
 
 # Put the guest agent in a separate package
