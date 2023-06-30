@@ -253,7 +253,7 @@ RDEPENDS:${PN} += "${PN}-common"
 ALLOW_EMPTY:${PN} = "1"
 FILES:${PN} = ""
 
-FILES:${PN}-common = "/usr/*  /var"
+FILES:${PN}-common = "${bindir}/* ${includedir}/* ${libexecdir}/* ${datadir}/* ${localstatedir}"
 
 PACKAGES_DYNAMIC += "^${PN}-user-.*  ^${PN}-system-.*"
 
