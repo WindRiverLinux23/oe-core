@@ -241,7 +241,7 @@ RDEPENDS:${PN} += "${PN}-common"
 ALLOW_EMPTY:${PN} = "1"
 FILES:${PN} = ""
 
-FILES:${PN}-common = "/usr/*  /var"
+FILES:${PN}-common = "/usr/bin/* /usr/include/* /usr/libexec/* /usr/share/*  /var"
 
 PACKAGES_DYNAMIC += "^${PN}-user-.*  ^${PN}-system-.*"
 
