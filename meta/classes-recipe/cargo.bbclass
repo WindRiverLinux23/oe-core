@@ -37,13 +37,15 @@ CARGO_SRC_DIR ??= ""
 # The actual path to the Cargo.toml
 MANIFEST_PATH ??= "${S}/${CARGO_SRC_DIR}/Cargo.toml"
 
+DEBUG_BUILD = "0"
+
 RUSTFLAGS ??= ""
-BUILD_MODE = "${@['--release', ''][d.getVar('DEBUG_BUILD') == '1']}"
+BUILD_MODE = "${@['--release', '--release'][d.getVar('DEBUG_BUILD') == '1']}"
 CARGO_BUILD_FLAGS = "-v --offline --target ${RUST_HOST_SYS} ${BUILD_MODE} --manifest-path=${MANIFEST_PATH}"
 
 # This is based on the content of CARGO_BUILD_FLAGS and generally will need to
 # change if CARGO_BUILD_FLAGS changes.
-BUILD_DIR = "${@['release', 'debug'][d.getVar('DEBUG_BUILD') == '1']}"
+BUILD_DIR = "${@['release', 'release'][d.getVar('DEBUG_BUILD') == '1']}"
 CARGO_TARGET_SUBDIR="${RUST_HOST_SYS}/${BUILD_DIR}"
 oe_cargo_build () {
 	export RUSTFLAGS="${RUSTFLAGS}"
