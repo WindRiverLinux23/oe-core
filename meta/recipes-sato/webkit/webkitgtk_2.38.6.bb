@@ -44,6 +44,9 @@ DEPENDS += " \
           gettext-native \
           "
 
+# webkitgtk fails to build with DEBUG_BUILD enabled
+DEBUG_BUILD = "0"
+
 PACKAGECONFIG_SOUP ?= "soup3"
 PACKAGECONFIG ??= "${@bb.utils.filter('DISTRO_FEATURES', 'systemd wayland x11', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 opengl', 'webgl opengl', '', d)} \
