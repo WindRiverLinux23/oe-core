@@ -11,11 +11,13 @@ inherit autotools pkgconfig update-alternatives
 
 SRC_URI = "git://github.com/besser82/libxcrypt.git;branch=${SRCBRANCH};protocol=https"
 SRCREV = "d7fe1ac04c326dba7e0440868889d1dccb41a175"
-SRCBRANCH ?= "develop"
+SRCBRANCH ?= "master"
 
 SRC_URI += "file://fix_cflags_handling.patch \
     file://0001-Fix-for-compilation-on-Windows.patch \
     file://0001-lib-util-get-random-bytes.c-fixed-conversion-error-w.patch \
+    file://0001-Make-BuildCommon.pm-compatible-with-latest-perl.patch \
+    file://0002-Remove-smartmatch-usage-from-gen-crypt-h.patch \
 "
 
 PROVIDES = "virtual/crypt"
