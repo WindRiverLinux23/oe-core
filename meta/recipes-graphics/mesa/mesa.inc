@@ -210,6 +210,7 @@ FULL_OPTIMIZATION:append = " -fno-omit-frame-pointer"
 
 CFLAGS:append:armv5 = " -DMISSING_64BIT_ATOMICS"
 CFLAGS:append:armv6 = " -DMISSING_64BIT_ATOMICS"
+CXXFLAGS:append = " -D_GLIBCXX_USE_CXX11_ABI=0"
 
 # Remove the mesa dependency on mesa-dev, as mesa is empty
 DEV_PKG_DEPENDENCY = ""
