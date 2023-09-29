@@ -18,6 +18,7 @@ SRC_URI = "https://mesa.freedesktop.org/archive/mesa-${PV}.tar.xz \
            file://0001-meson.build-check-for-all-linux-host_os-combinations.patch \
            file://0001-meson-misdetects-64bit-atomics-on-mips-clang.patch \
            file://0001-brw_simd_selection.cpp-fix-non-trivial-designated-in.patch \
+           file://0001-meson-Disable-cmake-dependency-detector-for-llvm.patch \
            "
 
 SRC_URI[sha256sum] = "386362a5d80df3b096636b67f340e1ce67b705b44767d5bdd11d2ed1037192d5"
