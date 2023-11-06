@@ -1,0 +1,37 @@
+From a507b628a5a5d4e4f1cf0f0a9a72967470ee7624 Mon Sep 17 00:00:00 2001
+From: Brecht Sanders <brecht@sanders.org>
+Date: Fri, 3 Feb 2023 08:44:49 +0100
+Subject: [PATCH] Fix for compilation on Windows
+
+This fix allows the library to build on Windows (at least with MinGW-w64).
+
+`.symver` is only supported for ELF format but Windows uses COFF/PE.
+
+Workaround dummy define of `symver_set()`
+
+Upstream-Status: Backport [https://github.com/besser82/libxcrypt/commit/a507b628a5a5d4e4f1cf0f0a9a72967470ee7624]
+
+Signed-off-by: Wenlin Kang <wenlin.kang@windriver.com>
+---
+ lib/crypt-port.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/lib/crypt-port.h b/lib/crypt-port.h
+index f06ca24..a707939 100644
+--- a/lib/crypt-port.h
++++ b/lib/crypt-port.h
+@@ -201,6 +201,11 @@ extern size_t strcpy_or_abort (void *dst, size_t d_size, const void *src);
+   __asm__(".globl _" extstr);                           \
+   __asm__(".set _" extstr ", _" #intname)
+ 
++#elif defined _WIN32
++
++/* .symver is only supported for ELF format, Windows uses COFF/PE */
++# define symver_set(extstr, intname, version, mode)
++
+ #elif defined __GNUC__ && __GNUC__ >= 3
+ 
+ # define _strong_alias(name, aliasname) \
+-- 
+2.34.1
+

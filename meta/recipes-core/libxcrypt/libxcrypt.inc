@@ -13,7 +13,10 @@ SRC_URI = "git://github.com/besser82/libxcrypt.git;branch=${SRCBRANCH};protocol=
 SRCREV = "d7fe1ac04c326dba7e0440868889d1dccb41a175"
 SRCBRANCH ?= "develop"
 
-SRC_URI += "file://fix_cflags_handling.patch"
+SRC_URI += "file://fix_cflags_handling.patch \
+    file://0001-Fix-for-compilation-on-Windows.patch \
+    file://0001-lib-util-get-random-bytes.c-fixed-conversion-error-w.patch \
+"
 
 PROVIDES = "virtual/crypt"
 
@@ -25,6 +28,8 @@ CPPFLAGS:append:class-nativesdk = " -Wno-error"
 
 API = "--disable-obsolete-api"
 EXTRA_OECONF += "${API}"
+
+CFLAGS:append:class-nativesdk = " -Wno-pedantic"
 
 ALTERNATIVE_PRIORITY = "90"
 ALTERNATIVE:${PN}-doc = "crypt.3 crypt_r.3"
