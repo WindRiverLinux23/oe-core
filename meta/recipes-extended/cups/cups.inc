@@ -18,6 +18,7 @@ SRC_URI = "${GITHUB_BASE_URI}/download/v${PV}/cups-${PV}-source.tar.gz \
            file://CVE-2023-32324.patch \
            file://CVE-2023-34241.patch \
            file://CVE-2023-4504.patch \
+           file://CVE-2023-32360.patch \
            "
 
 GITHUB_BASE_URI = "https://github.com/OpenPrinting/cups/releases"
