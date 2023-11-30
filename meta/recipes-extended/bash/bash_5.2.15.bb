@@ -12,6 +12,7 @@ SRC_URI = "${GNU_MIRROR}/bash/${BP}.tar.gz;name=tarball \
            file://run-bash-ptests \
            file://fix-run-builtins.patch \
            file://use_aclocal.patch \
+           file://0001-changes-to-SIGINT-handler-while-waiting-for-a-child-.patch \
            "
 
 SRC_URI[tarball.sha256sum] = "13720965b5f4fc3a0d4b61dd37e7565c741da9a5be24edc2ae00182fc1b3588c"
