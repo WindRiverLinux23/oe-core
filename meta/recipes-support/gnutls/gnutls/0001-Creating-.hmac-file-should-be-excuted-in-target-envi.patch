@@ -11,8 +11,6 @@ Signed-off-by: Lei Maohui <leimaohui@fujitsu.com>
  lib/Makefile.am | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/lib/Makefile.am b/lib/Makefile.am
-index 6d4e8d2..24ef108 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
 @@ -206,8 +206,7 @@ hmac_file = .libs/.$(gnutls_so).hmac
