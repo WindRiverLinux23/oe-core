@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSING;md5=c0a30e2b1502c55a7f37e412cd6c6a4b \
                     file://COPYING.LIB;md5=4fbd65380cdd255951079008b364516c \
                     "
 
-inherit autotools pkgconfig
+inherit autotools pkgconfig update-alternatives
 
 SRC_URI = "git://github.com/besser82/libxcrypt.git;branch=${SRCBRANCH};protocol=https"
 SRCREV = "d7fe1ac04c326dba7e0440868889d1dccb41a175"
@@ -25,5 +25,10 @@ CPPFLAGS:append:class-nativesdk = " -Wno-error"
 
 API = "--disable-obsolete-api"
 EXTRA_OECONF += "${API}"
+
+ALTERNATIVE_PRIORITY = "90"
+ALTERNATIVE:${PN}-doc = "crypt.3 crypt_r.3"
+ALTERNATIVE_LINK_NAME[crypt.3] = "${mandir}/man3/crypt.3"
+ALTERNATIVE_LINK_NAME[crypt_r.3] = "${mandir}/man3/crypt_r.3"
 
 BBCLASSEXTEND = "native nativesdk"
