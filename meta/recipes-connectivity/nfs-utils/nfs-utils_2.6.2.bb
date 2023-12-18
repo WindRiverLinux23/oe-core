@@ -33,6 +33,7 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/utils/nfs-utils/${PV}/nfs-utils-${PV}.tar.x
            file://0005-mountd-Check-for-return-of-stat-function.patch \
            file://0006-Fix-function-prototypes.patch \
            file://0001-Replace-statfs64-with-statfs.patch \
+           file://0001-Enable-building-with-enable-gss-enable-svcgss-option.patch \
            "
 SRC_URI[sha256sum] = "5200873e81c4d610e2462fc262fe18135f2dbe78b7979f95accd159ae64d5011"
 
@@ -56,7 +57,6 @@ EXTRA_OECONF = "--with-statduser=rpcuser \
                 --enable-mountconfig \
                 --enable-libmount-mount \
                 --enable-uuid \
-                --disable-gss \
                 --disable-nfsdcltrack \
                 --with-statdpath=/var/lib/nfs/statd \
                 --with-rpcgen=${HOSTTOOLS_DIR}/rpcgen \
@@ -64,6 +64,7 @@ EXTRA_OECONF = "--with-statduser=rpcuser \
 
 PACKAGECONFIG ??= "tcp-wrappers \
     ${@bb.utils.filter('DISTRO_FEATURES', 'ipv6', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'krb5', 'nfsv4 krb5', '', d)} \
 "
 PACKAGECONFIG:remove:libc-musl = "tcp-wrappers"
 PACKAGECONFIG[tcp-wrappers] = "--with-tcp-wrappers,--without-tcp-wrappers,tcp-wrappers"
@@ -72,6 +73,8 @@ PACKAGECONFIG[ipv6] = "--enable-ipv6,--disable-ipv6,"
 PACKAGECONFIG[nfsv41] = "--enable-nfsv41,--disable-nfsv41,libdevmapper,libdevmapper"
 # keyutils is available in meta-oe
 PACKAGECONFIG[nfsv4] = "--enable-nfsv4,--disable-nfsv4,keyutils,python3-core"
+# krb5 is available in meta-oe
+PACKAGECONFIG[krb5] = "--enable-gss --enable-svcgss --with-krb5=${STAGING_DIR_HOST}/usr,--disable-gss,krb5"
 
 PACKAGES =+ "${PN}-client ${PN}-mount ${PN}-stats ${PN}-rpcctl"
 
