@@ -12,6 +12,8 @@ inherit update-rc.d update-alternatives systemd autotools
 
 SRC_URI = "git://github.com/troglobit/sysklogd.git;branch=master;protocol=https \
            file://sysklogd \
+           file://0001-syslogd.service-KillMode-process-is-not-recommended-.patch \
+           file://0002-Fix-62-early-log-messages-lost-when-running-in-syste.patch \
            "
 
 SRCREV = "51d471543ce59eace6df6da0e42658911f1fb8c0"
