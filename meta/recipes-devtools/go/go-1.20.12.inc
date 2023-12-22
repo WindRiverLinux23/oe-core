@@ -16,9 +16,5 @@ SRC_URI += "\
     file://0009-go-Filter-build-paths-on-staticly-linked-arches.patch \
     file://CVE-2023-24531_1.patch \
     file://CVE-2023-24531_2.patch \
-    file://CVE-2023-39326.patch \
 "
-SRC_URI[main.sha256sum] = "4923920381cd71d68b527761afefa523ea18c5831b4795034c827e18b685cdcf"
-
-# Microsoft Windows specific CVEs
-CVE_CHECK_IGNORE += "CVE-2023-45283 CVE-2023-45284"
+SRC_URI[main.sha256sum] = "c5bf934751d31c315c1d0bb5fb02296545fa6d08923566f7a5afec81f2ed27d6"
