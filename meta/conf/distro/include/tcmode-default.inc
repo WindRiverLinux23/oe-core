@@ -77,9 +77,9 @@ PREFERRED_VERSION_go-runtime ?= "${GOVERSION}"
 PREFERRED_VERSION_nativesdk-go ?= "${GOVERSION}"
 PREFERRED_VERSION_nativesdk-go-runtime ?= "${GOVERSION}"
 
-PREFERRED_VERSION_llvm = "${LLVMVERSION}"
-PREFERRED_VERSION_llvm-native = "${LLVMVERSION}"
-PREFERRED_VERSION_nativesdk-llvm = "${LLVMVERSION}"
+PREFERRED_VERSION_llvm ?= "${LLVMVERSION}"
+PREFERRED_VERSION_llvm-native ?= "${LLVMVERSION}"
+PREFERRED_VERSION_nativesdk-llvm ?= "${LLVMVERSION}"
 
 # Rust toolchain preferred versions:
 
