@@ -3,7 +3,8 @@ require sqlite3.inc
 LICENSE = "PD"
 LIC_FILES_CHKSUM = "file://sqlite3.h;endline=11;md5=786d3dc581eff03f4fd9e4a77ed00c66"
 
-SRC_URI = "http://www.sqlite.org/2023/sqlite-autoconf-${SQLITE_PV}.tar.gz"
+SRC_URI = "http://www.sqlite.org/2023/sqlite-autoconf-${SQLITE_PV}.tar.gz \
+           file://CVE-2023-7104.patch"
 SRC_URI[sha256sum] = "49f77ac53fd9aa5d7395f2499cb816410e5621984a121b858ccca05310b05c70"
 
 # -19242 is only an issue in specific development branch commits
