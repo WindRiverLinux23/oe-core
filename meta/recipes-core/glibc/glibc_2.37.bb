@@ -14,6 +14,11 @@ CVE_CHECK_IGNORE += "CVE-2019-1010022 CVE-2019-1010023 CVE-2019-1010024"
 # Potential patch at https://sourceware.org/bugzilla/show_bug.cgi?id=22853
 CVE_CHECK_IGNORE += "CVE-2019-1010025"
 
+# The following CVEs are integrated into the 2.37 branch as of eee7525d35
+CVE_STATUS[CVE-2023-6246] = "fixed: Fixed with commit 97a4292aa4 in v2.37"
+CVE_STATUS[CVE-2023-6779] = "fixed: Fixed with commit 67062eccd9 in v2.37"
+CVE_STATUS[CVE-2023-6780] = "fixed: FIxed with commit 2b58cba076 in v2.37"
+
 # This is integrated into the 2.37 branch as of 07b9521fc6
 CVE_CHECK_IGNORE += "CVE-2023-25139"
 
