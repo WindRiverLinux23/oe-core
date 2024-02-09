@@ -16,6 +16,7 @@ SRC_URI = "${GNU_MIRROR}/cpio/cpio-${PV}.tar.gz \
            file://0001-Fix-appending-to-archives-bigger-than-2G.patch \
            file://run-ptest \
            file://test.sh \
+           file://CVE-2023-7207.patch \
            "
 
 SRC_URI[md5sum] = "389c5452d667c23b5eceb206f5000810"
