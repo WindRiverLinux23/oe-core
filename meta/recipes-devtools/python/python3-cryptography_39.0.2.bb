@@ -17,6 +17,7 @@ SRC_URI += "\
     file://check-memfree.py \
     file://run-ptest \
     file://CVE-2023-49083.patch \
+    file://CVE-2024-26130.patch \
 "
 
 require ${BPN}-crates.inc
