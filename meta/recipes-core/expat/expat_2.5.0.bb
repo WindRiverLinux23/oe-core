@@ -10,6 +10,17 @@ VERSION_TAG = "${@d.getVar('PV').replace('.', '_')}"
 
 SRC_URI = "${GITHUB_BASE_URI}/download/R_${VERSION_TAG}/expat-${PV}.tar.bz2  \
            file://run-ptest \
+           file://CVE-2023-52425-0001.patch \
+           file://CVE-2023-52425-0002.patch \
+           file://CVE-2023-52425-0003.patch \
+           file://CVE-2023-52425-0004.patch \
+           file://CVE-2023-52425-0005.patch \
+           file://CVE-2023-52425-0006.patch \
+           file://CVE-2023-52425-0007.patch \
+           file://CVE-2023-52425-0008.patch \
+           file://CVE-2023-52425-0009.patch \
+           file://CVE-2023-52425-0010.patch \
+           file://CVE-2023-52425-0011.patch \
            "
 
 GITHUB_BASE_URI = "https://github.com/libexpat/libexpat/releases/"
