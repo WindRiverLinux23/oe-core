@@ -11,7 +11,7 @@ PR = "r4"
 
 inherit autotools
 
-SRC_URI = "http://liba52.sourceforge.net/files/a52dec-${PV}.tar.gz \
+SRC_URI = "http://downloads.yoctoproject.org/mirror/sources/a52dec-${PV}.tar.gz \
            file://buildcleanup.patch"
 
 SRC_URI[md5sum] = "caa9f5bc44232dc8aeea773fea56be80"
