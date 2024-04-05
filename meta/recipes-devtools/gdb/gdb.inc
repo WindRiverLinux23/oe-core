@@ -16,6 +16,7 @@ SRC_URI = "${GNU_MIRROR}/gdb/gdb-${PV}.tar.xz \
            file://add-missing-ldflags.patch \
            file://0009-CVE-2023-39128.patch \
 	   file://0010-CVE-2023-39129.patch \
+	   file://0011-CVE-2023-39130.patch \
            "
 SRC_URI[sha256sum] = "fd5bebb7be1833abdb6e023c2f498a354498281df9d05523d8915babeb893f0a"
 
