@@ -19,6 +19,7 @@ SRC_URI += "http://www.w3.org/XML/Test/xmlts20130923.tar;subdir=${BP};name=testt
            file://fix-tests.patch \
            file://install-tests.patch \
            file://libxml-m4-use-pkgconfig.patch \
+           file://CVE-2024-25062.patch \
            "
 
 SRC_URI[archive.sha256sum] = "ed0c91c5845008f1936739e4eee2035531c1c94742c6541f44ee66d885948d45"
