@@ -9,6 +9,8 @@ SRC_URI = "\
     file://0001-fetch-ocsp-response-use-python3.patch \
     file://CVE-2023-35945.patch \
     file://CVE-2023-44487.patch \
+    file://CVE-2024-28182-0001.patch \
+    file://CVE-2024-28182-0002.patch \
 "
 SRC_URI[sha256sum] = "3ea9f0439e60469ad4d39cb349938684ffb929dd7e8e06a7bffe9f9d21f8ba7d"
 
