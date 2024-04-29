@@ -13,6 +13,7 @@ SRC_URI = "\
     file://0001-mbim-add-an-optional-TEMP_FAILURE_RETRY-macro-copy.patch \
     file://0002-mbim-Fix-build-with-ell-0.39-by-restoring-unlikely-m.patch \
     file://CVE-2023-4234.patch \
+    file://CVE-2023-4233.patch \
 "
 SRC_URI[sha256sum] = "b0a31bf4d8ff3030c4aef9f8413df999c54df9db2ff0a1d3ec1710e0a9d1a49e"
 
