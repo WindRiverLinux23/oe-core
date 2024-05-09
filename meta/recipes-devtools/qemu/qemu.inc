@@ -36,17 +36,23 @@ SRC_URI = "https://download.qemu.org/${BPN}-${PV}.tar.xz \
            file://qemu-guest-agent.init \
            file://qemu-guest-agent.udev \
            file://ppc.patch \
-	   file://CVE-2023-0330.patch \
-	   file://CVE-2023-3301.patch \
-	   file://CVE-2023-3255.patch \
-	   file://CVE-2023-2861.patch \
-	   file://CVE-2023-3354.patch \
-	   file://CVE-2023-3180.patch \
-	   file://CVE-2023-42467.patch \
-	   file://0001-target-i386-fix-avx2-instructions-vzeroall-and-vperm.patch \
-	   file://CVE-2023-3019-0001.patch \
-	   file://CVE-2023-3019-0002.patch \
-	   file://CVE-2023-3019-0003.patch \
+           file://CVE-2023-0330.patch \
+           file://CVE-2023-3301.patch \
+           file://CVE-2023-3255.patch \
+           file://CVE-2023-2861.patch \
+           file://CVE-2023-3354.patch \
+           file://CVE-2023-3180.patch \
+           file://CVE-2023-42467.patch \
+           file://0001-target-i386-fix-avx2-instructions-vzeroall-and-vperm.patch \
+           file://CVE-2023-3019-0001.patch \
+           file://CVE-2023-3019-0002.patch \
+           file://CVE-2023-3019-0003.patch \
+           file://CVE-2023-5088.patch \
+           file://CVE-2024-3446-0001.patch \
+           file://CVE-2024-3446-0002.patch \
+           file://CVE-2024-3446-0003.patch \
+           file://CVE-2024-3446-0004.patch \
+           file://CVE-2024-3446-0005.patch \
            "
 UPSTREAM_CHECK_REGEX = "qemu-(?P<pver>\d+(\.\d+)+)\.tar"
 
