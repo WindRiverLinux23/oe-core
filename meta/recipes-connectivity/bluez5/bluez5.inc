@@ -55,7 +55,9 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/bluetooth/bluez-${PV}.tar.xz \
            file://0001-tests-add-a-target-for-building-tests-without-runnin.patch \
            file://0001-test-gatt-Fix-hung-issue.patch \
            file://0004-src-shared-util.c-include-linux-limits.h.patch \
-	   file://CVE-2023-45866.patch \
+           file://CVE-2023-45866.patch \
+           file://CVE-2023-27349.patch \
+           file://CVE-2023-50229-CVE-2023-50230.patch \
            "
 S = "${WORKDIR}/bluez-${PV}"
 
