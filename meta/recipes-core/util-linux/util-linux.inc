@@ -37,6 +37,11 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/utils/util-linux/v${MAJOR_VERSION}/util-lin
            file://avoid_parallel_tests.patch \
            file://0001-check-for-sys-pidfd.h.patch \
            file://0001-configure.ac-Improve-check-for-magic.patch \
+           file//CVE-2024-28085-0001.patch \
+           file//CVE-2024-28085-0002.patch \
+           file//CVE-2024-28085-0003.patch \
+           file//CVE-2024-28085-0004.patch \
+           file//CVE-2024-28085-0005.patch \
            "
 
 SRC_URI[sha256sum] = "60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f"
