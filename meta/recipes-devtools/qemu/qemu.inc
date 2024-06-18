@@ -60,6 +60,7 @@ SRC_URI = "https://download.qemu.org/${BPN}-${PV}.tar.xz \
            file://CVE-2024-26328-0002.patch \
            file://CVE-2024-24474.patch \
            file://CVE-2024-3447.patch \
+           file://0001-apic-disable-reentrancy-detection-for-apic-msi.patch \
            "
 UPSTREAM_CHECK_REGEX = "qemu-(?P<pver>\d+(\.\d+)+)\.tar"
 
