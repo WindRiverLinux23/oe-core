@@ -1,0 +1,53 @@
+From 28b391ce7e58f8327c092b3911c05f526d0ad586 Mon Sep 17 00:00:00 2001
+From: Karel Zak <kzak@redhat.com>
+Date: Wed, 15 Jun 2022 10:03:44 +0200
+Subject: [PATCH] more: restore exit-on-eof if POSIXLY_CORRECT is not set
+
+In version 2.38, exit-on-eof has been disabled by default. This change
+is annoying for users and forces many users to use 'alias more="more
+-e"'. It seems better to force POSIX lovers to use POSIXLY_CORRECT
+env. variable and stay backwardly compatible by default.
+
+Upstream-Status: Backport [28b391ce7e58f8327c092b3911c05f526d0ad586]
+
+Addresses: https://github.com/util-linux/util-linux/issues/1703
+Addresses: https://bugzilla.redhat.com/show_bug.cgi?id=2088493
+Signed-off-by: Karel Zak <kzak@redhat.com>
+Signed-off-by: Haixiao Yan <haixiao.yan.cn@windriver.com>
+---
+ text-utils/more.1.adoc | 2 +-
+ text-utils/more.c      | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/text-utils/more.1.adoc b/text-utils/more.1.adoc
+index 40f2422f3..752035093 100644
+--- a/text-utils/more.1.adoc
++++ b/text-utils/more.1.adoc
+@@ -66,7 +66,7 @@ Prompt with "[Press space to continue, 'q' to quit.]", and display "[Press 'h' f
+ Do not pause after any line containing a *^L* (form feed).
+ 
+ *-e*, *--exit-on-eof*::
+-Exit on End-Of-File, enabled by default if not executed on terminal.
++Exit on End-Of-File, enabled by default if POSIXLY_CORRECT environment variable is not set or if not executed on terminal.
+ 
+ *-f*, *--no-pause*::
+ Count logical lines, rather than screen lines (i.e., long lines are not folded).
+diff --git a/text-utils/more.c b/text-utils/more.c
+index e3e2a4336..f2cd95e9b 100644
+--- a/text-utils/more.c
++++ b/text-utils/more.c
+@@ -2052,8 +2052,11 @@ int main(int argc, char **argv)
+ 	if (!(strcmp(program_invocation_short_name, "page")))
+ 		ctl.no_scroll++;
+ 
++	ctl.exit_on_eof = getenv("POSIXLY_CORRECT") ? 0 : 1;
++
+ 	if ((s = getenv("MORE")) != NULL)
+ 		env_argscan(&ctl, s);
++
+ 	argscan(&ctl, argc, argv);
+ 
+ 	/* clear any inherited settings */
+-- 
+2.34.1
+
