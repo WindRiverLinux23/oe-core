@@ -57,11 +57,6 @@ SRC_URI =  "${GLIBC_GIT_URI};branch=${SRCBRANCH};name=glibc \
            file://0020-tzselect.ksh-Use-bin-sh-default-shell-interpreter.patch \
            file://0021-fix-create-thread-failed-in-unprivileged-process-BZ-.patch \
            file://0022-Avoid-hardcoded-build-time-paths-in-the-output-binar.patch \
-           file://0023-CVE-2024-2961.patch \
-           file://0024-CVE-2024-33599.patch \
-           file://0025-CVE-2024-33600-0001.patch \
-           file://0026-CVE-2024-33600-0002.patch \
-           file://0027-CVE-2024-33601.patch \
 "
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build-${TARGET_SYS}"

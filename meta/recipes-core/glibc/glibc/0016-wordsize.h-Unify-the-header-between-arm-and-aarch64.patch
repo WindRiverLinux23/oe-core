@@ -17,13 +17,12 @@ Signed-off-by: Khem Raj <raj.khem@gmail.com>
  copy sysdeps/{aarch64 => arm}/bits/wordsize.h (85%)
 
 diff --git a/sysdeps/aarch64/bits/wordsize.h b/sysdeps/aarch64/bits/wordsize.h
-index 04d4be9519..63876a7830 100644
 --- a/sysdeps/aarch64/bits/wordsize.h
 +++ b/sysdeps/aarch64/bits/wordsize.h
 @@ -17,12 +17,16 @@
     License along with the GNU C Library; if not, see
     <https://www.gnu.org/licenses/>.  */
- 
+
 -#ifdef __LP64__
 +#if defined (__aarch64__) && defined (__LP64__)
  # define __WORDSIZE			64
@@ -37,31 +36,31 @@ index 04d4be9519..63876a7830 100644
 +# define __WORDSIZE32_SIZE_ULONG	0
 +# define __WORDSIZE32_PTRDIFF_LONG	0
  #endif
- 
+
  #define __WORDSIZE_TIME64_COMPAT32	0
 diff --git a/sysdeps/aarch64/bits/wordsize.h b/sysdeps/arm/bits/wordsize.h
-similarity index 85%
 copy from sysdeps/aarch64/bits/wordsize.h
 copy to sysdeps/arm/bits/wordsize.h
-index 04d4be9519..63876a7830 100644
 --- a/sysdeps/aarch64/bits/wordsize.h
 +++ b/sysdeps/arm/bits/wordsize.h
-@@ -17,12 +17,16 @@
+@@ -15,7 +15,16 @@
     License along with the GNU C Library; if not, see
     <https://www.gnu.org/licenses/>.  */
  
--#ifdef __LP64__
+-#define __WORDSIZE			32
+-#define __WORDSIZE_TIME64_COMPAT32	1
+-#define __WORDSIZE32_SIZE_ULONG		0
+-#define __WORDSIZE32_PTRDIFF_LONG	0
 +#if defined (__aarch64__) && defined (__LP64__)
- # define __WORDSIZE			64
--#else
++# define __WORDSIZE			64
 +#elif defined (__aarch64__)
- # define __WORDSIZE			32
- # define __WORDSIZE32_SIZE_ULONG	1
- # define __WORDSIZE32_PTRDIFF_LONG	1
++# define __WORDSIZE			32
++# define __WORDSIZE32_SIZE_ULONG	1
++# define __WORDSIZE32_PTRDIFF_LONG	1
 +#else
 +# define __WORDSIZE			32
 +# define __WORDSIZE32_SIZE_ULONG	0
 +# define __WORDSIZE32_PTRDIFF_LONG	0
- #endif
- 
- #define __WORDSIZE_TIME64_COMPAT32	0
++#endif
++
++#define __WORDSIZE_TIME64_COMPAT32	0
