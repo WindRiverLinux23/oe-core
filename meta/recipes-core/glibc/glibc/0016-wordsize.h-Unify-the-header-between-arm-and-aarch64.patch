@@ -1,6 +1,6 @@
-From 80dbf6f21c12b1c60bfab9a64798d4f1ea242efb Mon Sep 17 00:00:00 2001
+From e75bf9f95904dd251075b12757e09c3e55b1bc48 Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 15 May 2020 17:05:45 -0700
+Date: Thu, 11 Jul 2024 22:31:06 -0700
 Subject: [PATCH] wordsize.h: Unify the header between arm and aarch64
 
 This helps OE multilibs to not sythesize this header which causes all
@@ -10,40 +10,53 @@ and ends up including itself in many case e.g. clang tidy, bpf etc.
 Upstream-Status: Inappropriate [ OE-Specific ]
 
 Signed-off-by: Khem Raj <raj.khem@gmail.com>
+
+[Rebased against the current glibc version 0n 20240712]
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 ---
- sysdeps/aarch64/bits/wordsize.h          | 8 ++++++--
- sysdeps/{aarch64 => arm}/bits/wordsize.h | 8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
- copy sysdeps/{aarch64 => arm}/bits/wordsize.h (85%)
+ sysdeps/aarch64/bits/wordsize.h | 13 +++++++++----
+ sysdeps/arm/bits/wordsize.h     | 22 +++++++++++++++++-----
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
 diff --git a/sysdeps/aarch64/bits/wordsize.h b/sysdeps/aarch64/bits/wordsize.h
+index 04d4be9519..d26fc923d5 100644
 --- a/sysdeps/aarch64/bits/wordsize.h
 +++ b/sysdeps/aarch64/bits/wordsize.h
-@@ -17,12 +17,16 @@
+@@ -17,12 +17,17 @@
     License along with the GNU C Library; if not, see
     <https://www.gnu.org/licenses/>.  */
-
+ 
 -#ifdef __LP64__
 +#if defined (__aarch64__) && defined (__LP64__)
  # define __WORDSIZE			64
 -#else
++#define __WORDSIZE_TIME64_COMPAT32	0
 +#elif defined (__aarch64__)
  # define __WORDSIZE			32
++# define __WORDSIZE_TIME64_COMPAT32	0
  # define __WORDSIZE32_SIZE_ULONG	1
  # define __WORDSIZE32_PTRDIFF_LONG	1
 +#else
 +# define __WORDSIZE			32
-+# define __WORDSIZE32_SIZE_ULONG	0
++# define __WORDSIZE_TIME64_COMPAT32	1
++# define __WORDSIZE32_SIZE_ULONG		0
 +# define __WORDSIZE32_PTRDIFF_LONG	0
  #endif
-
- #define __WORDSIZE_TIME64_COMPAT32	0
-diff --git a/sysdeps/aarch64/bits/wordsize.h b/sysdeps/arm/bits/wordsize.h
-copy from sysdeps/aarch64/bits/wordsize.h
-copy to sysdeps/arm/bits/wordsize.h
---- a/sysdeps/aarch64/bits/wordsize.h
+-
+-#define __WORDSIZE_TIME64_COMPAT32	0
+diff --git a/sysdeps/arm/bits/wordsize.h b/sysdeps/arm/bits/wordsize.h
+index 6ecbfe7c86..d26fc923d5 100644
+--- a/sysdeps/arm/bits/wordsize.h
 +++ b/sysdeps/arm/bits/wordsize.h
-@@ -15,7 +15,16 @@
+@@ -1,4 +1,6 @@
+-/* Copyright (C) 1999-2024 Free Software Foundation, Inc.
++/* Determine the wordsize from the preprocessor defines.
++
++   Copyright (C) 2016-2023 Free Software Foundation, Inc.
+    This file is part of the GNU C Library.
+ 
+    The GNU C Library is free software; you can redistribute it and/or
+@@ -15,7 +17,17 @@
     License along with the GNU C Library; if not, see
     <https://www.gnu.org/licenses/>.  */
  
@@ -53,14 +66,18 @@ copy to sysdeps/arm/bits/wordsize.h
 -#define __WORDSIZE32_PTRDIFF_LONG	0
 +#if defined (__aarch64__) && defined (__LP64__)
 +# define __WORDSIZE			64
++#define __WORDSIZE_TIME64_COMPAT32	0
 +#elif defined (__aarch64__)
 +# define __WORDSIZE			32
++# define __WORDSIZE_TIME64_COMPAT32	0
 +# define __WORDSIZE32_SIZE_ULONG	1
 +# define __WORDSIZE32_PTRDIFF_LONG	1
 +#else
 +# define __WORDSIZE			32
-+# define __WORDSIZE32_SIZE_ULONG	0
++# define __WORDSIZE_TIME64_COMPAT32	1
++# define __WORDSIZE32_SIZE_ULONG		0
 +# define __WORDSIZE32_PTRDIFF_LONG	0
 +#endif
-+
-+#define __WORDSIZE_TIME64_COMPAT32	0
+-- 
+2.25.1
+
